@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yes_no_ejemplo/domain/entities/message.dart';
+import 'package:yes_no_ejemplo/domain/dtos/message.dart';
 import 'package:yes_no_ejemplo/presentation/providers/chats/chat_provider.dart';
 import 'package:yes_no_ejemplo/presentation/widgets/chat/message_bubble.dart';
 import 'package:yes_no_ejemplo/presentation/widgets/shared/message_field_box.dart';
