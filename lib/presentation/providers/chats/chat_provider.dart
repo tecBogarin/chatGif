@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_ejemplo/config/helpers/get_yes_no_answer.dart';
 
 import '../../../domain/entities/message.dart';
 
 class ChatProvider extends ChangeNotifier {
   final chatScrollController = ScrollController();
-
+  final getYesNoAnswer = GetYesNoAnswer();
   List<Message> messageList = [
     Message(text: 'HolaAmor!', fromWho: FromWho.me),
     Message(text: 'Ya regresaste ?', fromWho: FromWho.me),
@@ -23,14 +24,23 @@ class ChatProvider extends ChangeNotifier {
     Message(text: 'que malvado', fromWho: FromWho.me),
   ];
 
+  Future<void> herResponse() async {
+    final herMessage = await getYesNoAnswer.getAnswer();
+    messageList.add(herMessage);
+    notifyListeners();
+    moveScrollToBottom();
+  }
+
   Future<void> sendMessage(String text) async {
     if (text.isEmpty) return;
     final neMessage = Message(text: text, fromWho: FromWho.me);
     messageList.add(neMessage);
 
+    if (text.endsWith('?')) {
+      herResponse();
+    }
 //notifica a todos para su actualización de datos
     notifyListeners();
-
     moveScrollToBottom();
   }
 
